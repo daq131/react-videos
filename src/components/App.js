@@ -3,30 +3,16 @@ import SearchBar from "./SearchBar";
 import youtube from "../apis/youtube";
 import VideoList from "./VideoList";
 import VideoDetail from "./VideoDetail";
+import useVideos from "../hooks/useVideos";
 
 
 const App = () => {
-  const[videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
 
-  useEffect( () => {
-    onTermSubmit('cars');
+  // selectedVideo(response.data.items[0])
+ 
 
-  }, []);
-
-  const onTermSubmit = async (term) => {
-    const response = await youtube.get("/search", {
-      params: {
-        q: term,
-      },
-    });
-
-    setVideos(response.data.items);
-    selectedVideo(response.data.items[0])
-  }
-  const onVideoSelect = (video) => {
-    setSelectedVideo(video);
-  }
+ 
 
   
     return (
@@ -38,7 +24,9 @@ const App = () => {
                         <VideoDetail video={selectedVideo} />
                     </div>
                     <div className="fice wild column">
-                        <VideoList onVideoSelect={onVideoSelect} videos={videos} />     
+                        <VideoList 
+                        onVideoSelect={setSelectedVideo} 
+                        videos={videos} />     
                     </div>
                 </div>
         </div>
